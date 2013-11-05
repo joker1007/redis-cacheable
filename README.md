@@ -1,4 +1,7 @@
 # redis-cacheable
+[![Build Status](https://travis-ci.org/joker1007/redis-cacheable.png?branch=master)](https://travis-ci.org/joker1007/redis-cacheable)
+[![Coverage Status](https://coveralls.io/repos/joker1007/redis-cacheable/badge.png?branch=master)](https://coveralls.io/r/joker1007/redis-cacheable?branch=master)
+[![Code Climate](https://codeclimate.com/github/joker1007/redis-cacheable.png)](https://codeclimate.com/github/joker1007/redis-cacheable)
 
 It is concern style redis caching helper.
 It makes very easy to cache object.
