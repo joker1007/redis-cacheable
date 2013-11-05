@@ -23,14 +23,6 @@ module RedisCacheable
       end
     end
 
-    # TODO: ActiveRecord拡張として切り出す
-    def cache_all
-      find_each do |record|
-        record.cache_to_redis
-      end
-      redis.save
-    end
-
     def find_from_redis(key)
       redis do |conn|
         json = conn.get(key)

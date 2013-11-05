@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'redis_cacheable'
+require 'redis_cacheable/active_record'
 require 'redis'
 require 'mock_redis'
 
