@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = RedisCacheable::VERSION
   spec.authors       = ["joker1007"]
   spec.email         = ["kakyoin.hierophant@gmail.com"]
-  spec.summary       = %q{Helper of caching object to Redis}
-  spec.description   = %q{Helper of caching object to Redis}
+  spec.summary       = %q{Concern style helper of caching object to Redis}
+  spec.description   = %q{Concern style helper of caching object to Redis}
   spec.homepage      = ""
   spec.license       = "MIT"
 
