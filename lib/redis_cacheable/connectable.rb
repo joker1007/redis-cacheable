@@ -24,7 +24,7 @@ module RedisCacheable
         unless Connectable.redis_connection
           config = RedisCacheable::Configuration.config
           Connectable.redis_connection = ConnectionPool.new(size: config.pool_size, timeout: config.timeout) {
-            Redis.new(host: config.host, port: config.driver, driver: config.driver.to_sym)
+            Redis.new(host: config.host, port: config.port, driver: config.driver.to_sym)
           }
         end
 
