@@ -78,7 +78,7 @@ MyRecord.cache_all # cache all records
 ## Configuration
 
 ```ruby
-RedisCacheable.configure do |config|
+RedisCacheable::Configuration.configure do |config|
   config.host = "10.0.0.1"          #  redis host (default: "localhost")
   config.port = 6380                #  redis port (default: 6379)
   config.driver = :hiredis          #  redis port (default: :ruby)
