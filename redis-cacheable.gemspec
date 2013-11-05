@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kakyoin.hierophant@gmail.com"]
   spec.summary       = %q{Concern style helper of caching object to Redis}
   spec.description   = %q{Concern style helper of caching object to Redis}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/joker1007/redis-cacheable"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
