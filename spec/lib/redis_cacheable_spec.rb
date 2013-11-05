@@ -21,6 +21,10 @@ class ProcCacheableObject < CacheableObject
   }
 end
 
+class ProcKeyObject < CacheableObject
+  redis_key ->(object) { "object_#{object.id}" }
+end
+
 describe RedisCacheable do
   describe "Object including RedisCacheable" do
     describe "#cache_to_redis" do
@@ -39,6 +43,15 @@ describe RedisCacheable do
         it "cache redis_attrs data to redis" do
           subject
           expect(ProcCacheableObject.find_from_redis(1)).to eq(10)
+        end
+      end
+
+      context "if redis_key is proc" do
+        subject { ProcKeyObject.new(id: 1, name: "target").cache_to_redis }
+
+        it "use proc result as redis key" do
+          subject
+          expect(ProcKeyObject.find_from_redis("object_1")).to eq({"id" => 1, "name" => "target"})
         end
       end
     end
