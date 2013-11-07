@@ -21,6 +21,22 @@ module RedisCacheable
       def redis(&blk)
         raise ArgumentError.new("Need block") unless blk
 
+        connection = __ensure_redis_connection__
+
+        case connection
+        when ConnectionPool
+          connection.with do |conn|
+            blk.call(__wrap_namespace__(conn))
+          end
+        when Redis
+          blk.call(__wrap_namespace__(connection))
+        else
+          raise "Not redis connection"
+        end
+      end
+
+      private
+      def __ensure_redis_connection__
         unless Connectable.redis_connection
           config = RedisCacheable::Configuration.config
           Connectable.redis_connection = ConnectionPool.new(size: config.pool_size, timeout: config.timeout) {
@@ -28,10 +44,11 @@ module RedisCacheable
           }
         end
 
-        Connectable.redis_connection.with do |conn|
-          namespaced_redis = Redis::Namespace.new(redis_namespace, redis: conn)
-          blk.call(namespaced_redis)
-        end
+        Connectable.redis_connection
+      end
+
+      def __wrap_namespace__(connection)
+        Redis::Namespace.new(redis_namespace, redis: connection)
       end
     end
 

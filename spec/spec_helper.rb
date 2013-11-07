@@ -18,7 +18,3 @@ RSpec.configure do |config|
     Redis.stub(:new).with(any_args) { MockRedis.new }
   end
 end
-
-class ConnectableObject
-  include RedisCacheable::Connectable
-end

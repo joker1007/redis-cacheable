@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+class ConnectableObject
+  include RedisCacheable::Connectable
+end
+
 describe RedisCacheable::Connectable do
   describe "Class including RedisCacheable::Connectable" do
     describe ".redis" do
