@@ -16,9 +16,10 @@ module RedisCacheable
       end
 
       # cache all persisted records
+      # @param [Hash] options pass to find_each method
       # @return [void]
-      def cache_all
-        find_each do |record|
+      def cache_all(options = {})
+        find_each(options) do |record|
           record.cache_to_redis
         end
 
