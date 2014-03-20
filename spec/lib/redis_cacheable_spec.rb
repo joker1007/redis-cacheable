@@ -25,6 +25,12 @@ class ProcKeyObject < CacheableObject
   redis_key ->(object) { "object_#{object.id}" }
 end
 
+class InheritBase < CacheableObject
+  redis_key :name
+end
+
+class InheritChild < InheritBase; end
+
 describe RedisCacheable do
   describe "Object including RedisCacheable" do
     describe "#cache_to_redis" do
@@ -52,6 +58,15 @@ describe RedisCacheable do
         it "use proc result as redis key" do
           subject
           expect(ProcKeyObject.find_from_redis("object_1")).to eq({"id" => 1, "name" => "target"})
+        end
+      end
+
+      context "Inherit Test" do
+        subject { InheritChild.new(id: 1, name: "target").cache_to_redis }
+
+        it "use proc result as redis key" do
+          subject
+          expect(InheritChild.find_from_redis("target")).to eq({"id" => 1, "name" => "target"})
         end
       end
     end

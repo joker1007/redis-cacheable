@@ -29,6 +29,10 @@ module RedisCacheable
   include Connectable
 
   module ClassMethods
+    def inherited(subclass)
+      subclass.instance_variable_set("@__redis_cache_key__", @__redis_cache_key__)
+      subclass.instance_variable_set("@__redis_cache_attrs__", @__redis_cache_attrs__)
+    end
 
     # @param [Symbol || Proc] key used by redis.set method
     # @example If Symbol, param is method name
