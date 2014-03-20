@@ -101,13 +101,8 @@ module RedisCacheable
     when Proc
       __redis_cache_attrs__.call(self)
     when Array
-      if respond_to?(:as_json)
-        options = __redis_cache_attrs__.present? ? {only: __redis_cache_attrs__} : {}
-        as_json(options)
-      else
-        __redis_cache_attrs__.each_with_object({}) do |attr, hash|
-          hash[attr] = send(attr)
-        end
+      __redis_cache_attrs__.each_with_object({}) do |attr, hash|
+        hash[attr] = send(attr)
       end
     end
   end
