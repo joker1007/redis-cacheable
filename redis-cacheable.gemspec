@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport", ">= 3"
-  spec.add_dependency "redis"
+  spec.add_dependency "redis", ">= 3"
   spec.add_dependency "redis-namespace"
   spec.add_dependency "connection_pool"
   spec.add_dependency "multi_json"
