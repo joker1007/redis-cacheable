@@ -54,6 +54,13 @@ MyObject.find_from_redis(1) # => {"id" => 1, "name" => "my_object"}
 proc_object = ProcObject.new(id: 1, name: "proc_object")
 proc_object.cache_to_redis # different namespace with MyObject
 ProcObject.find_from_redis(1) # => 10
+
+## set expiration
+my_object.expire_redis(600)
+my_object.expireat_redis(Time.local(2014 ,4, 8, 12, 0).to_i)
+
+## delete from redis
+my_object.del_from_redis
 ```
 
 ### ActiveRecord
