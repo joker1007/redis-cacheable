@@ -67,6 +67,12 @@ module RedisCacheable
       end
     end
 
+    def del_from_redis(key)
+      redis do |conn|
+        conn.del(key)
+      end
+    end
+
     # @private
     # for internal use
     def __redis_cache_key__
@@ -80,9 +86,37 @@ module RedisCacheable
     end
   end
 
-  def cache_to_redis
+  def cache_to_redis(expire: nil)
     redis do |conn|
-      conn.set(redis_cache_key, MultiJson.dump(redis_cache_data))
+      if expire
+        conn.setex(redis_cache_key, expire, MultiJson.dump(redis_cache_data))
+      else
+        conn.set(redis_cache_key, MultiJson.dump(redis_cache_data))
+      end
+    end
+  end
+
+  def del_from_redis
+    redis do |conn|
+      conn.del(redis_cache_key)
+    end
+  end
+
+  def expire_redis(sec)
+    redis do |conn|
+      conn.expire(redis_cache_key, sec)
+    end
+  end
+
+  def expireat_redis(unix_time)
+    redis do |conn|
+      conn.expireat(redis_cache_key, unix_time)
+    end
+  end
+
+  def ttl_redis
+    redis do |conn|
+      conn.ttl(redis_cache_key)
     end
   end
 
