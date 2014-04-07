@@ -47,6 +47,16 @@ describe RedisCacheable do
         end
       end
 
+      context "if given expire option" do
+        subject { CacheableObject.new(id: 1, name: "target").cache_to_redis(expire: 1) }
+
+        it "cache redis_attrs data to redis and expired after given time" do
+          subject
+          sleep 1
+          expect(CacheableObject.find_from_redis(1)).to be_nil
+        end
+      end
+
       context "if redis_attrs is proc" do
         subject { ProcCacheableObject.new(id: 1, name: "target").cache_to_redis }
 
